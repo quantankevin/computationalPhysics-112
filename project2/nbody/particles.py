@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pickle
 
 class Particles:
     """
@@ -20,13 +20,59 @@ class Particles:
         self._accelerations=np.concatenate((self._accelerations, accelerations), axis=0)
         self.nparticles+=np.shape(masses)[0]
     
-    def output(self, dim):
-        if dim ==2:
-            plt.scatter(self._positions[:,0],self._positions[:,1])
-        elif dim ==3:
-            plt.scatter(self._positions[:,0],self._positions[:,1],self.positions[:,2])
-    pass
+    def plot_output(self, dim):
+        fig = plt.figure()
 
+        if dim == 2:
+            ax = fig.add_subplot(111)
+            ax.scatter(self.positions[:,0], self.positions[:,1])
+            ax.set_xlabel('X [code unit]')
+            ax.set_ylabel('Y [code unit]')
+            
+        elif dim == 3:
+            ax = fig.add_subplot(111, projection='3d')
+            ax.scatter(self.positions[:,0], self.positions[:,1], self.positions[:,2])
+            ax.set_xlabel('X [code unit]')
+            ax.set_ylabel('Y [code unit]')
+            ax.set_zlabel('Z [code unit]')
+        else:
+            print("Invalid dimension!")
+            return
+    def save_data(self, filename):
+        with open(filename, 'wb') as f:
+            pickle.dump({
+                'masses': self.masses,
+                'positions': self.positions,
+                'velocities': self.velocities,
+                'accelerations': self.accelerations
+            }, f)      
+    def load_data(self, filename):
+        with open(filename, 'rb') as f:
+            data = pickle.load(f)
+            self.masses = data['masses']
+            self.positions = data['positions']
+            self.velocities = data['velocities']
+            self.accelerations = data['accelerations']
+
+    def save_data_txt(self, filename):
+     with open(filename, 'w') as f:
+        for i in range(self.nparticles):
+            line = f"{self.masses[i][0]} {' '.join(map(str, self.positions[i]))} {' '.join(map(str, self.velocities[i]))} {' '.join(map(str, self.accelerations[i]))}\n"
+            f.write(line)
+    def load_data_txt(self, filename):
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+            self.nparticles = len(lines)
+            self.masses = np.zeros((self.nparticles, 1))
+            self.positions = np.zeros((self.nparticles, 3))
+            self.velocities = np.zeros((self.nparticles, 3))
+            self.accelerations = np.zeros((self.nparticles, 3))
+        for i, line in enumerate(lines):
+            data = line.split()
+            self.masses[i] = float(data[0])
+            self.positions[i] = list(map(float, data[1:4]))
+            self.velocities[i] = list(map(float, data[4:7]))
+            self.accelerations[i] = list(map(float, data[7:]))
     @property
     def tags(self):
         return self._tags

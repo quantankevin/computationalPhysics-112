@@ -1,36 +1,6 @@
 import numpy as np
-<<<<<<< HEAD
 import matplotlib as plt
-=======
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
-"""
 
-This program solves Initial Value Problems (IVP).
-We support three numerical meothds: Euler, Rk2, and Rk4
-
-Example Usage:
-
-    def func(t,y,a,b,c):
-        yderive = np.zeros(len(y))
-        yderive[0] = 0
-        yderive[1] = a, ...
-        return yderive
-
-    y0  = [0,1]
-    t_span = (0,1)
-    t_eval =np.linspace(0,1,100)
-
-    sol = solve_ivp(func, t_span, y0, 
-                    method="RK4",t_eval=t_eval, args=(K,M))
-
-
-    See `solve_ivp` for detailed description. 
-
-Author: Kuo-Chuan Pan, NTHU 2022.10.06
-                            2024.03.08
-For the course, computational physics
-
-"""
 def solve_ivp(func, t_span, y0, method, t_eval, args):
     """
     Solve Initial Value Problems. 
@@ -53,7 +23,6 @@ def solve_ivp(func, t_span, y0, method, t_eval, args):
     """
 
     sol  = np.zeros((len(y0),len(t_eval))) # define the shape of the solution
-<<<<<<< HEAD
     dt=t_eval[1]-t_span[0]
     #
     # TODO:
@@ -65,14 +34,6 @@ def solve_ivp(func, t_span, y0, method, t_eval, args):
     return sol
         
 
-=======
-
-    #
-    # TODO:
-    #
-
-    return sol
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
 
 def _update(derive_func,y0, dt, t, method, *args):
     """
@@ -111,15 +72,10 @@ def _update_euler(derive_func,y0,dt,t,*args):
     #
     # TODO:
     #
-<<<<<<< HEAD
     # Step 1: set up the parameters of the problem
     yderv = derive_func(t,y0,*args)
     ynext = y0 + yderv * dt
     return ynext
-=======
-
-    return y0 # <- change here. just a placeholder
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
 
 def _update_rk2(derive_func,y0,dt,t,*args):
     """
@@ -127,7 +83,6 @@ def _update_rk2(derive_func,y0,dt,t,*args):
 
     :return: the next step solution y
     """
-<<<<<<< HEAD
     
     #
     # TODO:
@@ -136,14 +91,6 @@ def _update_rk2(derive_func,y0,dt,t,*args):
     k2 = derive_func(t+dt, y0+k1*dt,*args)
     ynext = y0 + (k1+k2)*dt/2
     return ynext
-=======
-
-    #
-    # TODO:
-    #
-
-    return y0 # <- change here. just a placeholder
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
 
 def _update_rk4(derive_func,y0,dt,t,*args):
     """
@@ -155,7 +102,6 @@ def _update_rk4(derive_func,y0,dt,t,*args):
     #
     # TODO:
     #
-<<<<<<< HEAD
     k1 =derive_func(t,y0,*args)
 
     # k2 = f(t+dt/2, y+k1*dt/2) = y'(t+dt/2, y+k1*dt/2)
@@ -172,10 +118,6 @@ def _update_rk4(derive_func,y0,dt,t,*args):
 
 
     return ynext # <- change here. just a placeholder
-=======
-
-    return y0 # <- change here. just a placeholder
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
 
 if __name__=='__main__':
 
@@ -210,7 +152,6 @@ if __name__=='__main__':
         #
         # TODO:
         #
-<<<<<<< HEAD
         force = - K * y[0] # the force on the oscillator
         A = force/M        # the accerlation
 
@@ -218,10 +159,6 @@ if __name__=='__main__':
         f[0] = y[1]
         f[1] = A
         return f
-=======
- 
-        return y # <- change here. just a placeholder
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
 
     t_span = (0, 10)
     y0     = np.array([1,0])
@@ -231,15 +168,8 @@ if __name__=='__main__':
     M = 1
 
     sol = solve_ivp(oscillator, t_span, y0, 
-<<<<<<< HEAD
                     method="RK4",t_eval=t_eval, args=(K,M))
 
     print("sol=",sol[0])
     print("Done!")
  
-=======
-                    method="Euler",t_eval=t_eval, args=(K,M))
-
-    print("sol=",sol[0])
-    print("Done!")
->>>>>>> 59867f9e5de5e9a803cc6b3224dcda6b07aedd8f
