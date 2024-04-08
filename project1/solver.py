@@ -1,6 +1,32 @@
 import numpy as np
 import matplotlib as plt
+"""
+This program solves Initial Value Problems (IVP).
+We support three numerical meothds: Euler, Rk2, and Rk4
 
+Example Usage:
+
+    def func(t,y,a,b,c):
+        yderive = np.zeros(len(y))
+        yderive[0] = 0
+        yderive[1] = a, ...
+        return yderive
+
+    y0  = [0,1]
+    t_span = (0,1)
+    t_eval =np.linspace(0,1,100)
+
+    sol = solve_ivp(func, t_span, y0, 
+                    method="RK4",t_eval=t_eval, args=(K,M))
+
+
+    See `solve_ivp` for detailed description. 
+
+Author: Kuo-Chuan Pan, NTHU 2022.10.06
+                            2024.03.08
+For the course, computational physics
+
+"""
 def solve_ivp(func, t_span, y0, method, t_eval, args):
     """
     Solve Initial Value Problems. 
