@@ -17,7 +17,7 @@ class Particles:
     """
     Particle class to store particle properties
     """
-    def __init__(self, N:int=0):
+    def __init__(self, N:int=100):
         """
         Allocate memories for particle properties
 

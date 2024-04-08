@@ -6,14 +6,29 @@ class Particles:
     """
     Particle class to store particle properties
     """
-<<<<<<< HEAD
-    def __init__(self, N:int=100):
+    def __init__(self, N:int=2):
         self.nparticles = N
         self._masses = np.ones((N,1))
         self._positions = np.zeros((N,3))
         self._velocities = np.zeros((N,3))
         self._accelerations = np.zeros((N,3))
-    pass
+        # print("Particles initialized")
+        self._time = 0
+        return
+    
+    def set_particles(self, pos, vel, acc):
+        """
+        Set particle properties for the N-body simulation
+
+        :param pos: positions of particles
+        :param vel: velocities of particles
+        :param acc: accelerations of particles
+        """
+        self.positions = pos
+        self.velocities = vel
+        self.accelerations = acc
+        return
+    
     def add_particles( self,masses, positions, velocities, accelerations):
         self._masses=np.concatenate((self._masses, masses), axis=0)
         self._positions=np.concatenate((self._positions, positions), axis=0)
@@ -55,7 +70,7 @@ class Particles:
             self.velocities = data['velocities']
             self.accelerations = data['accelerations']
 
-    def save_data_txt(self, filename):
+    def output(self, filename):
      with open(filename, 'w') as f:
         for i in range(self.nparticles):
             line = f"{self.masses[i][0]} {' '.join(map(str, self.positions[i]))} {' '.join(map(str, self.velocities[i]))} {' '.join(map(str, self.accelerations[i]))}\n"
@@ -84,7 +99,10 @@ class Particles:
             raise ValueError    
         self._tags = some_tags
         return
-   
+    @property
+    def time(self):
+        return self._time
+    
     @property
     def masses(self):
         return self._masses
@@ -129,9 +147,3 @@ class Particles:
             raise ValueError    
         self._positions= some_positions
         return
-
-=======
-    def __init__(self, N):
-        pass
->>>>>>> 11d5be2e9b887d3e66a71fef8a802edd7b9cd26f
-

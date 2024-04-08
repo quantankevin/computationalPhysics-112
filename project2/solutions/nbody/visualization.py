@@ -44,6 +44,7 @@ def save_movie(fns, lengthscale=1.0, filename='movie.mp4',fps=30):
         plt.title("Frame ="+str(frame),size=18)
         return line,
 
+
     ani = animation.FuncAnimation(fig, update, frames=len(fns), init_func=init, blit=True)
     ani.save(filename, writer='ffmpeg', fps=fps)
     return
