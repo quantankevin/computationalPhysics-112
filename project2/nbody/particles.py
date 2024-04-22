@@ -6,7 +6,6 @@ class Particles:
     """
     Particle class to store particle properties
     """
-<<<<<<< HEAD
     def __init__(self, N:int=100):
         self.nparticles = N
         self._masses = np.ones((N,1))
@@ -130,8 +129,4 @@ class Particles:
         self._positions= some_positions
         return
 
-=======
-    def __init__(self, N):
-        pass
->>>>>>> 11d5be2e9b887d3e66a71fef8a802edd7b9cd26f
 
