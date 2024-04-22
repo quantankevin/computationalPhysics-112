@@ -106,7 +106,6 @@ class NBodySimulator:
             # update the time
             time += dt
 
-        print("Simulation is done!")
         return
 
     def _calculate_acceleration(self, nparticles, masses, positions):
