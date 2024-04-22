@@ -6,6 +6,7 @@ class Particles:
     """
     Particle class to store particle properties
     """
+<<<<<<< HEAD
     def __init__(self, N:int=2):
         self.nparticles = N
         self._masses = np.ones((N,1))
@@ -19,6 +20,11 @@ class Particles:
     def set_particles(self, pos, vel, acc):
         """
         Set particle properties for the N-body simulation
+=======
+    def __init__(self, N):
+        self.nparticles = N
+        return
+>>>>>>> ca50cffd8b7b7fded09f518d87121b86f65eaeb6
 
         :param pos: positions of particles
         :param vel: velocities of particles
