@@ -82,7 +82,8 @@ class NBodySimulator:
         # prepare for the output
         io_folder = "data_"+self.io_header
         Path(io_folder).mkdir(parents=True, exist_ok=True)
-
+        
+        
         # ===============================
         # Start the simulation
         # The main loop

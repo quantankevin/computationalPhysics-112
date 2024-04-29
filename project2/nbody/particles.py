@@ -7,11 +7,13 @@ class Particles:
     Particle class to store particle properties
     """
     def __init__(self, N:int=100):
-        self.nparticles = N
+        self.nparticles = N 
         self._masses = np.ones((N,1))
         self._positions = np.zeros((N,3))
         self._velocities = np.zeros((N,3))
         self._accelerations = np.zeros((N,3))
+        self._tags = np.arange(N)
+        self._time = 0.0
     pass
     def add_particles( self,masses, positions, velocities, accelerations):
         self._masses=np.concatenate((self._masses, masses), axis=0)
@@ -74,6 +76,9 @@ class Particles:
             self.velocities[i] = list(map(float, data[4:7]))
             self.accelerations[i] = list(map(float, data[7:]))
     @property
+    def time(self):
+        return self._time
+    @property
     def tags(self):
         return self._tags
     @tags.setter
@@ -128,5 +133,47 @@ class Particles:
             raise ValueError    
         self._positions= some_positions
         return
+    def set_particles(self, pos, vel, acc):
+        """
+        Set particle properties for the N-body simulation
+
+        :param pos: positions of particles
+        :param vel: velocities of particles
+        :param acc: accelerations of particles
+        """
+        self.positions = pos
+        self.velocities = vel
+        self.accelerations = acc
+        return
+    def output(self, filename):
+        """
+        Output particle properties to a file
+
+        :param filename: output file name
+        """
+        masses = self.masses
+        pos = self.positions
+        vel = self.velocities
+        acc = self.accelerations
+        tags = self.tags
+        time = self.time
+
+        header = """
+                ----------------------------------------------------
+                Data from a 3D direct N-body simulation. 
+
+                rows are i-particle; 
+                coumns are :mass, tag, x ,y, z, vx, vy, vz, ax, ay, az
+
+                NTHU, Computational Physics 
+
+                ----------------------------------------------------
+                """
+        header += "Time = {}".format(time)
+        np.savetxt(filename,(tags[:],masses[:,0],pos[:,0],pos[:,1],pos[:,2],
+                            vel[:,0],vel[:,1],vel[:,2],
+                            acc[:,0],acc[:,1],acc[:,2]),header=header)
+        return
+    
 
 
